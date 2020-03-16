@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           : Colors.grey[300],
                       onPressed: () =>
                           setState(() => _loginState = LoginState.signUp),
-                      child: Text("Signup",
+                      child: Text("Sign up",
                           style: TextStyle(
                               fontSize: 20.0,
                               color: _loginState == LoginState.signUp
