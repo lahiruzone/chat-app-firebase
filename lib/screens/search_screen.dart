@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'create_chatscreen.dart';
+
 class SearchScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -38,7 +40,16 @@ class _SearchScreenState extends State<SearchScreen> {
             icon: Icon(
               Icons.add,
             ),
-            onPressed: null,
+            onPressed: () {
+              if (_selectedUsers.length > 0) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => CreateChatScreen(
+                              selectedUsers: _selectedUsers,
+                            )));
+              }
+            },
           ),
         ],
       ),
@@ -90,14 +101,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     int userIndex = index - _selectedUsers.length;
                     User user = _users[userIndex];
                     return ListTile(
-                        title: Text(user.name),
-                        trailing: Icon(Icons.check_circle_outline),
-                        onTap: () {
-                          _selectedUsers.add(user);
-                          _users.remove(user);
-                          setState(() {}); //empty set state rerender
-                        },
-                      );
+                      title: Text(user.name),
+                      trailing: Icon(Icons.check_circle_outline),
+                      onTap: () {
+                        _selectedUsers.add(user);
+                        _users.remove(user);
+                        setState(() {}); //empty set state rerender
+                      },
+                    );
                   }))
         ],
       ),

@@ -18,7 +18,7 @@ class AuthService {
         String token = await _firebaseMessaging.getToken();
         usersRef.document(authResult.user.uid).setData({
           'name': name,
-          'emai': email,
+          'email': email,
           'token': token,
         });
       }
