@@ -2,6 +2,7 @@ import 'package:chat_app/screens/home_screen.dart';
 import 'package:chat_app/screens/login_screen.dart';
 import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/services/database_service.dart';
+import 'package:chat_app/services/storage_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,9 @@ void main() => runApp(MultiProvider(
         ),
         Provider<DatabaseService>(
           create: (_) => DatabaseService(),
+        ),
+        Provider<StorageService>(
+          create: (_) => StorageService(),
         )
       ],
       child: MyApp(),
