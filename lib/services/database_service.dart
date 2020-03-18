@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:chat_app/models/chat_model.dart';
+import 'package:chat_app/models/message_model.dart';
+import 'package:chat_app/models/user_data.dart';
 import 'package:chat_app/models/user_model.dart';
 import 'package:chat_app/services/storage_service.dart';
 import 'package:chat_app/utilities/constants.dart';
@@ -32,19 +35,11 @@ class DatabaseService {
     String imageUrl = await Provider.of<StorageService>(context, listen: false)
         .uploadChatImage(null, file);
 
-    DocumentReference chatDoc = await chatRef.add({
-      'name': name,
-      'immageUrl': imageUrl,
-      'recentMessage': 'Chat created',
-      'recentSender': '',
-      'recentTimestam': Timestamp.now(),
-    });
-    final String chatId = chatDoc.documentID;
     List<String> memberIds = [];
     Map<String, dynamic> memberInfo = {};
     Map<String, dynamic> readStatus = {};
 
-    for(String userId in users){
+    for (String userId in users) {
       memberIds.add(userId);
 
       User user = await getUser(userId);
@@ -58,5 +53,31 @@ class DatabaseService {
       readStatus[userId] = false;
     }
 
+    await chatRef.add({
+      'name': name,
+      'immageUrl': imageUrl,
+      'recentMessage': 'Chat created',
+      'recentSender': '',
+      'recentTimestam': Timestamp.now(),
+      'memberIds': memberIds,
+      'memberInfo': memberInfo,
+      'readStatus': readStatus,
+    });
+    return true;
+  }
+
+  void sendChatMessage(Chat chat, Message message) {
+    chatRef.document(chat.id).collection('messages').add({
+      'senderId': message.senderId,
+      'text': message.text,
+      'imageUrl': message.imageUrl,
+      'timestamp': message.timestamp
+    });
+  }
+
+  void setChatRead(BuildContext context, Chat chat, bool read) {
+    String currentUserId =
+        Provider.of<UserData>(context, listen: false).curretUserId;
+    chatRef.document(chat.id).updateData({'readStatus.$currentUserId': read});
   }
 }
