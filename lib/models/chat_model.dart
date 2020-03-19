@@ -8,7 +8,7 @@ class Chat {
   final String recentSender;
   final Timestamp recentTimeStamp;
   final List<dynamic> memberIds;
-  final dynamic memberInfor;
+  final dynamic memberInfo;
   final dynamic readStatus;
 
   Chat(
@@ -19,7 +19,7 @@ class Chat {
       this.recentSender,
       this.recentTimeStamp,
       this.memberIds,
-      this.memberInfor,
+      this.memberInfo,
       this.readStatus});
 
   factory Chat.fromDoc(DocumentSnapshot doc) {
@@ -31,7 +31,7 @@ class Chat {
       recentSender: doc['recentSender'],
       recentTimeStamp: doc['recentTimeStamp'],
       memberIds: doc['memberIds'],
-      memberInfor: doc['memberInfo'],
+      memberInfo: doc['memberInfo'],
       readStatus: doc['readStatus'],
     );
   }

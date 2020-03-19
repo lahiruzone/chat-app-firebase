@@ -55,10 +55,10 @@ class DatabaseService {
 
     await chatRef.add({
       'name': name,
-      'immageUrl': imageUrl,
+      'imageUrl': imageUrl,
       'recentMessage': 'Chat created',
       'recentSender': '',
-      'recentTimestam': Timestamp.now(),
+      'recentTimeStamp': Timestamp.now(),
       'memberIds': memberIds,
       'memberInfo': memberInfo,
       'readStatus': readStatus,
@@ -66,7 +66,7 @@ class DatabaseService {
     return true;
   }
 
-  void sendChatMessage(Chat chat, Message message) {
+  void sendChatMessage(Chat chat, Message message) async {
     chatRef.document(chat.id).collection('messages').add({
       'senderId': message.senderId,
       'text': message.text,
@@ -75,7 +75,7 @@ class DatabaseService {
     });
   }
 
-  void setChatRead(BuildContext context, Chat chat, bool read) {
+  void setChatRead(BuildContext context, Chat chat, bool read) async {
     String currentUserId =
         Provider.of<UserData>(context, listen: false).curretUserId;
     chatRef.document(chat.id).updateData({'readStatus.$currentUserId': read});
