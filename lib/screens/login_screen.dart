@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
       child: TextFormField(
         decoration: const InputDecoration(
-          labelText: 'Email',
+          labelText: 'Emails - q@q.com / k@k.com',
         ),
         validator: (input) =>
             !input.contains('@') ? 'Please enter a valied email' : null,
@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
       child: TextFormField(
         decoration: const InputDecoration(
-          labelText: 'Password',
+          labelText: 'Password - 123456',
         ),
         validator: (input) =>
             input.length < 6 ? 'Must be atleast 6 charactors' : null,
