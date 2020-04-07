@@ -46,7 +46,7 @@ class DatabaseService {
       Map<String, dynamic> userMap = {
         'name': user.name,
         'email': user.email,
-        'toke': user.token
+        'token': user.token
       };
       memberInfo[userId] = userMap;
 
