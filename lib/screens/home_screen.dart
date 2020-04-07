@@ -6,6 +6,7 @@ import 'package:chat_app/screens/search_screen.dart';
 import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/utilities/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _firebaseMessaging.configure(onMessage: (Map<String, dynamic> message) {
+      print(message);
+    }, onResume: (Map<String, dynamic> message) {
+      print(message);
+    }, onLaunch: (Map<String, dynamic> message) {
+      print(message);
+    });
+
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+
+    _firebaseMessaging.onIosSettingsRegistered.listen((settings) {
+      print(settings);
+    });
+  }
+
   _buildChat(Chat chat, String currentUserId) {
     print('>>>>>>>>>>>>>>>>>.');
     print(chat.imageUrl);
