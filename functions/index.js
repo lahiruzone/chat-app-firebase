@@ -16,7 +16,7 @@ exports.addChatMessage = functions.firestore
             const readStatus = chatData.readStatus;
             for (let userId in readStatus) {
                 //check readStatus has userId key
-                if (readStatus.hasOwnPropety(userId) && userId !== messageData.senderId) {
+                if (readStatus.hasOwnProperty(userId) && userId !== messageData.senderId) {
                     readStatus[userId] = false;
                 }
             }
